@@ -123,6 +123,17 @@ export default function WidgetController($scope, $state, $timeout, $window, $ocL
                     return widgetContext.defaultSubscription.sendTwoWayCommand(method, params, timeout);
                 }
                 return null;
+            },
+            clickRedirect: function(params) { //js控件中跳转
+                var stateParams = {
+                    dashboardId: "09df5860-7ddc-11e9-aa5b-b773cec20c3f", //跳转页面Id  或者从页面中传参 放到params中
+                    state: utils.objToBase64([ {params: {}} ]),
+                    params:params
+                 }
+
+                //示例
+                $state.go('home.dashboards.dashboard', stateParams);
+                return null;
             }
         },
         utils: {
@@ -504,6 +515,7 @@ export default function WidgetController($scope, $state, $timeout, $window, $ocL
                 }
                 break;
             case types.widgetActionTypes.openDashboard.value:
+                $log.log("openDashboard++++++++++++++++++++++++++");
                 var targetDashboardId = descriptor.targetDashboardId;
                 targetDashboardStateId = descriptor.targetDashboardStateId;
                 var stateObject = {};
